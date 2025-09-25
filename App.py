@@ -1,9 +1,14 @@
 import streamlit as st
-import pickle
+# import pickle
+import joblib
 import pandas as pd
 
-with open('random_forest_model.pkl', 'rb') as mod:
-    model = pickle.load(mod)
+# with open('random_forest_model.pkl', 'rb') as mod:
+#     model = pickle.load(mod)
+
+# Load Joblib
+with open('random_forest_model.joblib', 'rb') as mod:
+    model = joblib.load(mod)
 
 # Load encoded data to get the columnss
 encoded_df = pd.read_csv('encoded_data.csv', index_col=0)
@@ -63,4 +68,5 @@ user_input = input_var()
 if st.button('Predict Price'):
     prediction = model.predict(user_input)
     st.subheader('The Predicted Price is:')
+
     st.success(f'₦{round(prediction[0], 2)}')
